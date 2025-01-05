@@ -8,7 +8,7 @@ sacremoses
 langdetect
 langid
 sentencepiece   
-torch torchvision torchaudio
+torch 
 joblib    
 wordcloud  
 seaborn 
