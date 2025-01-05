@@ -1,6 +1,7 @@
 python
 numpy
 pandas
+transformers
 pip install scikit-learn   
 pip install textblob   
 pip install transformers 
