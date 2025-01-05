@@ -7,8 +7,8 @@ import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Load the pre-trained model and vectorizer
-model = joblib.load("C:/Users/nishi/Documents/project/Code/model/language_classifier_model.pkl")
-vectorizer = joblib.load("C:/Users/nishi/Documents/project/Code/model/language_vectorizer.pkl")
+model = joblib.load("model/language_classifier_model.pkl")
+vectorizer = joblib.load("model/language_vectorizer.pkl")
 
 # Title
 st.title("Multilingual Language Detection and Translation System")
