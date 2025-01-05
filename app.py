@@ -26,9 +26,8 @@ option = st.selectbox(
 # Process user input
 if st.button("Run"):
     if option == "Detect Language":
-        # Preprocess the input text using the loaded vectorizer
-        reshaped_input = vectorizer.transform([text])  # Transform the text into numerical data
-        lang_detect = langid.classify(reshaped_input)[0]  # Predict language using the model
+        # Use langid to detect the language of the raw text
+        lang_detect = langid.classify(text)[0]  # langid.classify() returns a tuple (language, confidence)
         st.write(f"Detected Language: {lang_detect}")
 
     elif option == "Translate Text":
