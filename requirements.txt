@@ -1,9 +1,9 @@
 python
 numpy
 pandas
+transformers 
 pip install scikit-learn   
 pip install textblob   
-pip install transformers 
 pip install sacremoses   
 pip install langdetect
 pip install langid
@@ -13,4 +13,5 @@ pip install joblib
 pip install wordcloud  
 pip install seaborn 
 pip install matplotlib
+pickle
                                           
