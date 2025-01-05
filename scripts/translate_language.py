@@ -4,7 +4,7 @@ from transformers import MarianMTModel, MarianTokenizer
 from huggingface_hub import login
 
 # Replace with your token
-login(token="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", add_to_git_credential=True)
+login(token="hf_XXXXXXXXXXXXXXXXXXXXXXXXX", add_to_git_credential=True)
 
 # Load the CSV file with data
 data = pd.read_csv('C:/Users/nishi/Documents/project/Code/data/language_detection_data.csv')
