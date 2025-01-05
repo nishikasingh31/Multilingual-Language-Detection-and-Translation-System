@@ -28,7 +28,7 @@ if st.button("Run"):
         # Preprocess the input text using the loaded vectorizer
         reshaped_input = vectorizer.transform([text])  # Transform the text into numerical data
         lang_detect = model.predict(reshaped_input)[0]  # Predict language using the model
-        st.write(f"Detected Language: {lang_detect}")
+        st.write(f"Detected Language: {lang_id}")
 
     elif option == "Translate Text":
         # Example: Translation logic using a pre-trained transformer model
