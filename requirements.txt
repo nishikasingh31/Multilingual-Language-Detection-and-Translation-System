@@ -12,5 +12,4 @@ joblib
 wordcloud  
 seaborn 
 matplotlib
-pickle
-                                          
+                          
