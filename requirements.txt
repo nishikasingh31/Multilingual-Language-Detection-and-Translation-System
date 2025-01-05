@@ -1,9 +1,8 @@
-python
 numpy
 pandas
 transformers 
 scikit-learn   
-textblob   
+textblob 
 sacremoses   
 langdetect
 langid
