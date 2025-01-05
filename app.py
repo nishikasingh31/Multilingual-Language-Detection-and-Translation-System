@@ -1,4 +1,5 @@
 import streamlit as st
+import langid
 from transformers import pipeline
 import pandas as pd
 import joblib
