@@ -1,11 +1,9 @@
 import streamlit as st
 import langid
 from transformers import pipeline
-import pandas as pd
 import joblib
-import numpy as np
-import pickle
-from sklearn.feature_extraction.text import TfidfVectorizer
+from wordcloud import WordCloud, STOPWORDS
+import matplotlib.pyplot as plt
 
 # Load the pre-trained model and vectorizer
 model = joblib.load("model/language_classifier_model.pkl")
@@ -25,24 +23,37 @@ option = st.selectbox(
 
 # Process user input
 if st.button("Run"):
-    if option == "Detect Language":
-        # Use langid to detect the language of the raw text
-        lang_detect = langid.classify(text)[0]  # langid.classify() returns a tuple (language, confidence)
-        st.write(f"Detected Language: {lang_detect}")
+    try:
+        if option == "Detect Language":
+            # Language detection using langid
+            if text.strip():
+                lang_detect = langid.classify(text)[0]  # Returns (language, confidence)
+                st.write(f"Detected Language: {lang_detect}")
+            else:
+                st.warning("Please enter some text to detect the language.")
 
-    elif option == "Translate Text":
-        # Example: Translation logic using a pre-trained transformer model
-        translator = pipeline("translation", model="Helsinki-NLP/opus-mt-mul-en")
-        translation = translator(text, max_length=400)
-        st.write(f"Translation: {translation[0]['translation_text']}")
+        elif option == "Translate Text":
+            # Translation using Hugging Face pipeline
+            if text.strip():
+                translator = pipeline("translation", model="Helsinki-NLP/opus-mt-mul-en")
+                translation = translator(text, max_length=400)
+                st.write(f"Translation: {translation[0]['translation_text']}")
+            else:
+                st.warning("Please enter some text to translate.")
 
-    elif option == "Visualize Word Cloud":
-        from wordcloud import WordCloud
-        import matplotlib.pyplot as plt
-
-        # Generate a word cloud
-        wordcloud = WordCloud(width=800, height=400).generate(text)
-        plt.figure(figsize=(10, 5))
-        plt.imshow(wordcloud, interpolation="bilinear")
-        plt.axis("off")
-        st.pyplot(plt)
+        elif option == "Visualize Word Cloud":
+            # Word Cloud visualization
+            if text.strip():
+                wordcloud = WordCloud(
+                    width=800,
+                    height=400,
+                    stopwords=STOPWORDS
+                ).generate(text)
+                plt.figure(figsize=(10, 5))
+                plt.imshow(wordcloud, interpolation="bilinear")
+                plt.axis("off")
+                st.pyplot(plt)
+            else:
+                st.warning("Please enter some text to generate a word cloud.")
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
