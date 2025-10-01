@@ -2,7 +2,8 @@
 
 https://github.com/user-attachments/assets/0a399755-90c5-4684-a054-22273ef3b809
 
-## Streamlit Deployment--https://nishikasingh31-multilingual-language-detection-and-translation.streamlit.app/
+## Streamlit Deployment
+https://nishikasingh31-multilingual-language-detection-and-translation.streamlit.app/
 
 An interactive **Streamlit web application** that detects the language of input text and provides real-time translation into multiple languages.  
 Built with **Python, Streamlit, Hugging Face Transformers, and LangID**, this project demonstrates multilingual NLP capabilities in a simple, user-friendly interface.
