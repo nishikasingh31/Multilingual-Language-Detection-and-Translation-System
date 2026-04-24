@@ -35,9 +35,9 @@ if st.button("Run"):
         elif option == "Translate Text":
             # Translation using Hugging Face pipeline
             if text.strip():
-                translator = pipeline("translation", model="Helsinki-NLP/opus-mt-mul-en")
+                translator = pipeline("text2text-generation", model="Helsinki-NLP/opus-mt-mul-en")
                 translation = translator(text, max_length=400)
-                st.write(f"Translation: {translation[0]['translation_text']}")
+                st.write(f"Translation: {translation[0]['generated_text']}")
             else:
                 st.warning("Please enter some text to translate.")
 
