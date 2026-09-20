@@ -1,13 +1,24 @@
 import streamlit as st
 import langid
-from transformers import pipeline
 import joblib
 from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
+from transformers import MarianMTModel, MarianTokenizer
 
 # Load the pre-trained model and vectorizer
 model = joblib.load("model/language_classifier_model.pkl")
 vectorizer = joblib.load("model/language_vectorizer.pkl")
+
+
+# Cache the translation model/tokenizer so they load only once per session,
+# not on every button click / script rerun.
+@st.cache_resource
+def load_translation_model():
+    model_name = "Helsinki-NLP/opus-mt-mul-en"
+    tokenizer = MarianTokenizer.from_pretrained(model_name)
+    translation_model = MarianMTModel.from_pretrained(model_name)
+    return tokenizer, translation_model
+
 
 # Title
 st.title("Multilingual Language Detection and Translation System")
@@ -33,14 +44,18 @@ if st.button("Run"):
                 st.warning("Please enter some text to detect the language.")
 
         elif option == "Translate Text":
-            # Translation using Hugging Face pipeline
+            # Translation using MarianMT directly (no pipeline(), so no
+            # dependency on transformers' task registry / processor auto-detection)
             if text.strip():
-                translator = pipeline("translation",
-                       model="Helsinki-NLP/opus-mt-mul-en",
-                       tokenizer="Helsinki-NLP/opus-mt-mul-en"
+                tokenizer, translation_model = load_translation_model()
+                inputs = tokenizer(
+                    text, return_tensors="pt", padding=True, truncation=True
                 )
-                translation = translator(text, max_length=400)
-                st.write(f"Translation: {translation[0]['translation_text']}")
+                outputs = translation_model.generate(**inputs, max_length=400)
+                translated_text = tokenizer.decode(
+                    outputs[0], skip_special_tokens=True
+                )
+                st.write(f"Translation: {translated_text}")
             else:
                 st.warning("Please enter some text to translate.")
 
