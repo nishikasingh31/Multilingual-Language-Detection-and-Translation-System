@@ -51,7 +51,14 @@ if st.button("Run"):
                 inputs = tokenizer(
                     text, return_tensors="pt", padding=True, truncation=True
                 )
-                outputs = translation_model.generate(**inputs, max_length=400)
+                outputs = translation_model.generate(
+                    **inputs, 
+                    max_length=400,
+                     num_beams=4,
+                     no_repeat_ngram_size=3,
+                    repetition_penalty=1.3,
+                    early_stopping=True
+                )
                 translated_text = tokenizer.decode(
                     outputs[0], skip_special_tokens=True
                 )
